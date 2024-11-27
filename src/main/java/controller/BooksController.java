@@ -1,12 +1,12 @@
 package controller;
 
-import entity.Books;
+import dto.Books;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import service.BookService;
+import service.BooksService;
 
 import java.util.List;
 
@@ -14,10 +14,10 @@ import java.util.List;
 @RequestMapping("/books")
 public class BooksController {
 
-    private final BookService bookService;
+    private final BooksService bookService;
 
     @Autowired
-    public BooksController(BookService bookService) {
+    public BooksController(BooksService bookService) {
         this.bookService = bookService;
     }
 
@@ -27,7 +27,7 @@ public class BooksController {
     }
 
     @GetMapping
-    public ResponseEntity<Books> getBookById(@RequestParam(name = "id") String id) {
+    public ResponseEntity<Books> getBookById(@RequestParam(name = "id") Long id) {
         return ResponseEntity.ok(this.bookService.getBookById(id));
     }
 

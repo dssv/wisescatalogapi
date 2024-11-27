@@ -1,7 +1,9 @@
 package service;
 
 
-import entity.Books;
+import dto.Books;
+import exception.ResourceNotFoundException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -11,9 +13,14 @@ import repository.BooksRepository;
 import java.util.List;
 
 @Service
-public class BookService {
+public class BooksService {
 
-    private BooksRepository booksRepository;
+    private final BooksRepository booksRepository;
+
+    @Autowired
+    public BooksService(BooksRepository booksRepository) {
+        this.booksRepository = booksRepository;
+    }
 
     @Cacheable(value = "books", key = "#genre")
     public List<Books> getBooksByGenre(String genre) {
@@ -31,7 +38,7 @@ public class BookService {
     }
 
     @Cacheable(value = "books", key = "#id")
-    public Books getBookById(String id) {
-        return booksRepository.findById(id).orElse(null);
+    public Books getBookById(Long id) {
+        return booksRepository.findById(id.toString()).orElseThrow(ResourceNotFoundException::new);
     }
 }
