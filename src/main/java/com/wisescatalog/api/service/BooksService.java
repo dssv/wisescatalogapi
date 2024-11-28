@@ -11,25 +11,36 @@ import org.springframework.stereotype.Service;
 import com.wisescatalog.api.repository.BooksRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class BooksService {
 
     private final BooksRepository booksRepository;
+    //private final RecentlyViewedService recentlyViewedService;
 
     @Autowired
     public BooksService(BooksRepository booksRepository) {
+                        //RecentlyViewedService recentlyViewedService) {
         this.booksRepository = booksRepository;
+        //this.recentlyViewedService = recentlyViewedService;
     }
 
     @Cacheable(value = "genre")
     public List<Books> getBooksByGenre(String genre) {
-        return booksRepository.findByGenreIgnoreCase(genre);
+        return Optional.ofNullable(booksRepository.findByGenreIgnoreCase(genre))
+                .filter(list -> !list.isEmpty())
+                .orElseThrow(ResourceNotFoundException::new);
     }
 
     @Cacheable(value = "author")
     public List<Books> getBooksByAuthor(String author) {
-        return booksRepository.findByAuthorIgnoreCase(author);
+        List<Books> booksByAuthor = booksRepository.findByAuthorIgnoreCase(author);
+        if (booksByAuthor.isEmpty()) {
+            throw new ResourceNotFoundException();
+        } else {
+            return booksByAuthor;
+        }
     }
 
     public Page<Books> getAllBooks(Pageable pageable) {
@@ -43,7 +54,9 @@ public class BooksService {
 
     @Cacheable(value = "books", key = "#id")
     public Books getBookById(Long id) {
-        return booksRepository.findById(id.toString()).orElseThrow(ResourceNotFoundException::new);
+        Books book = booksRepository.findById(id.toString()).orElseThrow(ResourceNotFoundException::new);
+        //recentlyViewedService.registerView(book);
+        return book;
     }
 
     public void saveAllBooks(List<Books> booksList) {
