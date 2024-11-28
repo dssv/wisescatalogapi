@@ -2,6 +2,7 @@ package com.wisescatalog.api.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import java.io.Serializable;
@@ -14,9 +15,20 @@ import java.io.Serializable;
 @AllArgsConstructor
 public class Books implements Serializable {
 
-    @Id @GeneratedValue(strategy = GenerationType.AUTO) private Long id;
-    @JsonProperty("genre")  @NonNull private String genre;
-    @JsonProperty("author") @NonNull private String author;
-    @JsonProperty("title") @NonNull private String title;
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    private Long id;
+
+    @JsonProperty("genre")
+    @NotNull
+    private String genre;
+
+    @JsonProperty("author")
+    @NotNull
+    private String author;
+
+    @JsonProperty("title")
+    @NotNull
+    private String title;
 
 }

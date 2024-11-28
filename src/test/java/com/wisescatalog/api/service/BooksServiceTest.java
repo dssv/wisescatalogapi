@@ -29,7 +29,7 @@ public class BooksServiceTest {
     }
 
     @Test
-    public void testGetBooksByGenre_ReturnsBooksList_WhenBooksExist() {
+    public void testGetBooksByGenre_ReturnsBooksList_WhenBooksExist() throws Exception {
         // Given
         String genre = "Fantasy";
         List<Books> booksList = Arrays.asList(new Books(), new Books());
@@ -57,7 +57,7 @@ public class BooksServiceTest {
     }
 
     @Test
-    public void testGetBooksByAuthor_ReturnsBooksList_WhenBooksExist() {
+    public void testGetBooksByAuthor_ReturnsBooksList_WhenBooksExist() throws Exception {
         // Given
         String author = "J.K. Rowling";
         List<Books> booksList = Arrays.asList(new Books(), new Books());
@@ -85,7 +85,7 @@ public class BooksServiceTest {
     }
 
     @Test
-    public void testGetBookById_ReturnsBook_WhenBookExists() {
+    public void testGetBookById_ReturnsBook_WhenBookExists() throws Exception {
         // Given
         Long id = 1L;
         Books book = new Books();
@@ -129,7 +129,7 @@ public class BooksServiceTest {
     }
 
     @Test
-    public void testGetAllBooks_ReturnsListOfBooks() {
+    public void testGetAllBooks_ReturnsListOfBooks() throws ResourceNotFoundException {
         // Given
         List<Books> booksList = Arrays.asList(new Books(), new Books(), new Books());
 

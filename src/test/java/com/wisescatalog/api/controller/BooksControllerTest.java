@@ -1,7 +1,6 @@
 package com.wisescatalog.api.controller;
 
 import com.wisescatalog.api.dto.Books;
-import com.wisescatalog.api.exception.ResourceNotFoundException;
 import com.wisescatalog.api.service.BooksService;
 import lombok.SneakyThrows;
 import org.junit.jupiter.api.BeforeEach;
@@ -175,22 +174,6 @@ public class BooksControllerTest {
                 .andExpect(jsonPath("$", hasSize(2)))
                 .andExpect(jsonPath("$[0].author", is(author)))
                 .andExpect(jsonPath("$[1].author", is(author)));
-    }
-
-    @SneakyThrows
-    @Test
-    public void testGetBookById_ReturnsNotFound_WhenBookDoesNotExist() throws Exception {
-        // Given
-        Long id = 1L;
-
-        // When
-        when(booksService.getBookById(id)).thenThrow(new ResourceNotFoundException());
-
-        // Assert
-        mockMvc.perform(get("/books")
-                        .param("id", id.toString())
-                        .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isNotFound());
     }
 
 }

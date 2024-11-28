@@ -1,6 +1,7 @@
 package com.wisescatalog.api.controller;
 
 import com.wisescatalog.api.dto.Books;
+import com.wisescatalog.api.exception.BadRequestException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -25,7 +26,7 @@ public class BooksController {
     @GetMapping
     public ResponseEntity<?> getBooks(
             @RequestParam(required = false) Integer page,
-            @RequestParam(required = false) Integer size){
+            @RequestParam(required = false) Integer size) {
         if (page != null && size != null) {
             Pageable pageable = PageRequest.of(page, size);
             return ResponseEntity.ok(bookService.getAllBooks(pageable));

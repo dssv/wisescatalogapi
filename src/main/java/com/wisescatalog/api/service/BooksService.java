@@ -27,17 +27,20 @@ public class BooksService {
     }
 
     @Cacheable(value = "genre")
-    public List<Books> getBooksByGenre(String genre) {
-        return Optional.ofNullable(booksRepository.findByGenreIgnoreCase(genre))
-                .filter(list -> !list.isEmpty())
-                .orElseThrow(ResourceNotFoundException::new);
+    public List<Books> getBooksByGenre(String genre) throws ResourceNotFoundException {
+        List<Books> booksList = booksRepository.findByGenreIgnoreCase(genre);
+        if (booksList.isEmpty()){
+            throw new ResourceNotFoundException("Books not found.");
+        } else {
+            return booksList;
+        }
     }
 
     @Cacheable(value = "author")
-    public List<Books> getBooksByAuthor(String author) {
+    public List<Books> getBooksByAuthor(String author) throws ResourceNotFoundException {
         List<Books> booksByAuthor = booksRepository.findByAuthorIgnoreCase(author);
         if (booksByAuthor.isEmpty()) {
-            throw new ResourceNotFoundException();
+            throw new ResourceNotFoundException("Books not found");
         } else {
             return booksByAuthor;
         }
@@ -48,14 +51,23 @@ public class BooksService {
     }
 
     @Cacheable(value = "books")
-    public List<Books> getAllBooks() {
-        return booksRepository.findAll();
+    public List<Books> getAllBooks() throws ResourceNotFoundException {
+        List<Books> booksList =  booksRepository.findAll();
+        if (booksList.isEmpty()) {
+            throw new ResourceNotFoundException("Books not found");
+        } else {
+            return booksList;
+        }
     }
 
     @Cacheable(value = "books", key = "#id")
-    public Books getBookById(Long id) {
-        Books book = booksRepository.findById(id.toString()).orElseThrow(ResourceNotFoundException::new);
-        return book;
+    public Books getBookById(Long id) throws ResourceNotFoundException {
+        Optional<Books> book = booksRepository.findById(id.toString());
+        if (book.isEmpty()) {
+            throw new ResourceNotFoundException("Books not found");
+        } else {
+            return book.get();
+        }
     }
 
     public void saveAllBooks(List<Books> booksList) {

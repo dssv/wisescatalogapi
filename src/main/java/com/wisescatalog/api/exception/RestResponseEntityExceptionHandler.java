@@ -5,11 +5,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
-
-import java.security.InvalidParameterException;
 
 @ControllerAdvice
 public class RestResponseEntityExceptionHandler
@@ -24,16 +21,15 @@ public class RestResponseEntityExceptionHandler
                 new HttpHeaders(), HttpStatus.CONFLICT, request);
     }
 
-    @ExceptionHandler(value
-            = { InvalidParameterException.class, HttpClientErrorException.BadRequest.class })
+    @ExceptionHandler(value = { BadRequestException.class })
     protected ResponseEntity<Object> handleBadRequest(
             RuntimeException ex, WebRequest request) {
-        String bodyOfResponse = "Your request is missing some parameter";
+        String bodyOfResponse = "Required parameter is not present";
         return handleExceptionInternal(ex, bodyOfResponse,
                 new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
     }
 
-    @ExceptionHandler(value = { ResourceNotFoundException.class })
+    @ExceptionHandler(value = { ResourceNotFoundException.class  })
     protected ResponseEntity<Object> handleNotFound(
             RuntimeException ex, WebRequest request) {
         String bodyOfResponse = "Resource not found";
