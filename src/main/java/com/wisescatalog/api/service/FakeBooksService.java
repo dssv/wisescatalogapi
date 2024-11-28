@@ -24,11 +24,11 @@ public class FakeBooksService {
 
         do {
             Faker faker = new Faker();
-            Books book = new Books();
-
-            book.setAuthor(faker.book().author());
-            book.setGenre(faker.book().genre());
-            book.setTitle(faker.book().title());
+            Books book = Books.builder()
+                    .author(faker.book().author())
+                    .genre(faker.book().genre())
+                    .title(faker.book().title())
+                    .build();
 
             booksList.add(book);
             count++;

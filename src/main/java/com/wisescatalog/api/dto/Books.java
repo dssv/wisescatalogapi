@@ -9,6 +9,7 @@ import java.io.Serializable;
 @Entity(name = "books")
 @Setter
 @Getter
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class Books implements Serializable {

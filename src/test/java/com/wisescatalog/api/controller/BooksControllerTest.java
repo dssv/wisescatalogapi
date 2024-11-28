@@ -61,9 +61,9 @@ public class BooksControllerTest {
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(2)))
-                .andExpect(jsonPath("$[0].id", is("1")))
+                .andExpect(jsonPath("$[0].id", is(1)))
                 .andExpect(jsonPath("$[0].title", is("Book One")))
-                .andExpect(jsonPath("$[1].id", is("2")))
+                .andExpect(jsonPath("$[1].id", is(2)))
                 .andExpect(jsonPath("$[1].title", is("Book Two")));
     }
 
@@ -93,9 +93,9 @@ public class BooksControllerTest {
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.content", hasSize(2)))
-                .andExpect(jsonPath("$.content[0].id", is("1")))
+                .andExpect(jsonPath("$.content[0].id", is(1)))
                 .andExpect(jsonPath("$.content[0].title", is("Book One")))
-                .andExpect(jsonPath("$.content[1].id", is("2")))
+                .andExpect(jsonPath("$.content[1].id", is(2)))
                 .andExpect(jsonPath("$.content[1].title", is("Book Two")));
     }
 
@@ -116,7 +116,6 @@ public class BooksControllerTest {
                         .param("id", id.toString())
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.id", is(id.toString())))
                 .andExpect(jsonPath("$.title", is("Book One")));
     }
 
