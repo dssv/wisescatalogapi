@@ -17,13 +17,12 @@ import java.util.Optional;
 public class BooksService {
 
     private final BooksRepository booksRepository;
-    //private final RecentlyViewedService recentlyViewedService;
+    private final RedisService redisService;
 
     @Autowired
-    public BooksService(BooksRepository booksRepository) {
-                        //RecentlyViewedService recentlyViewedService) {
+    public BooksService(BooksRepository booksRepository, RedisService redisService) {
         this.booksRepository = booksRepository;
-        //this.recentlyViewedService = recentlyViewedService;
+        this.redisService = redisService;
     }
 
     @Cacheable(value = "genre")
@@ -66,11 +65,12 @@ public class BooksService {
         if (book.isEmpty()) {
             throw new ResourceNotFoundException("Books not found");
         } else {
+            redisService.registerView(book.get());
             return book.get();
         }
     }
 
     public void saveAllBooks(List<Books> booksList) {
-        booksRepository.saveAll(booksList);
+        booksRepository.saveAllAndFlush(booksList);
     }
 }

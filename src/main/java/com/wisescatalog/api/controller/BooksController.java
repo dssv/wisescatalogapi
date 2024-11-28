@@ -1,7 +1,6 @@
 package com.wisescatalog.api.controller;
 
 import com.wisescatalog.api.dto.Books;
-import com.wisescatalog.api.exception.BadRequestException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
