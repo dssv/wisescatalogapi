@@ -244,6 +244,7 @@ Onde o campo index é a quantidade de livros criados pela lib de Java-Faker e in
 uma evolução interessante.
 - Cache de paginação: A cache para o endpoint de paginação foi um grande desafio pois é necessário armazenar na cache, 
 os índices buscados junto aos dados.
+- Testes com o banco: Rodar os testes com vários componentes integrados é um grande desafio, principalmente quando são componentes externos da aplicação.
    
 ## Conclusão
 

@@ -1,7 +1,7 @@
 FROM maven:3.9.9 as maven_builder
 COPY src /app/src
 COPY pom.xml /app
-RUN mvn -f /app/pom.xml clean package -DskipTests
+RUN mvn -f /app/pom.xml clean package -DskipTests=true
 
 FROM openjdk:21-slim
 #RUN apt-get update && apt-get install

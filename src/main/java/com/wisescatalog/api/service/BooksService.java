@@ -55,7 +55,6 @@ public class BooksService {
     @Cacheable(value = "books", key = "#id")
     public Books getBookById(Long id) {
         Books book = booksRepository.findById(id.toString()).orElseThrow(ResourceNotFoundException::new);
-        //recentlyViewedService.registerView(book);
         return book;
     }
 
