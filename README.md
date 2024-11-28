@@ -234,7 +234,7 @@ Onde o campo index é a quantidade de livros criados pela lib de Java-Faker e in
 
 ### Possíveis Melhorias
    
-- Testes Automatizados: Escrever testes unitários e de integração para garantir a qualidade do código.************************
+- Testes Automatizados: Escrever mais testes unitários e de integração para garantir a qualidade e cobertura do código, além de ferramentas de análise de cobertura.
 - Monitoramento e Logging: Integrar ferramentas de monitoramento para acompanhamento em tempo real.
 - Estruturação do Banco de Dados: Evoluir a estrutura dos objetos do banco de dados.
    
