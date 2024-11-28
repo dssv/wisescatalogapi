@@ -1,4 +1,4 @@
-package config;
+package com.wisescatalog.api.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,8 +15,6 @@ public class RedisConfig {
 
     @Bean
     public LettuceConnectionFactory redisConnectionFactory() {
-        // Replace "redis" with your Redis container name if necessary
-        // return new LettuceConnectionFactory(new RedisStandaloneConfiguration("localhost", 6379));
         return new LettuceConnectionFactory(new RedisStandaloneConfiguration("redis", 6379));
     }
 
@@ -25,7 +23,8 @@ public class RedisConfig {
         return RedisCacheConfiguration.defaultCacheConfig()
                 .entryTtl(Duration.ofMinutes(60))
                 .disableCachingNullValues()
-                .serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(new GenericJackson2JsonRedisSerializer()));
+                .serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(
+                        new GenericJackson2JsonRedisSerializer()));
     }
 
     @Bean

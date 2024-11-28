@@ -13,6 +13,9 @@ Este documento serve como um guia abrangente para a API REST desenvolvida em Jav
   - Lógica de Negócios
   - Estrutura de Dados
   - Endpoints da API
+  - Como testar a aplicação
+    - Configurando o banco
+    - Docker-Compose
 - 3. Melhorias e Considerações Finais
   - Possíveis Melhorias
   - Desafios Encontrados

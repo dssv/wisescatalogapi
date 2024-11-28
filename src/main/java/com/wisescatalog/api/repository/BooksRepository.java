@@ -1,6 +1,6 @@
-package repository;
+package com.wisescatalog.api.repository;
 
-import dto.Books;
+import com.wisescatalog.api.dto.Books;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 

@@ -4,7 +4,7 @@ COPY pom.xml /app
 RUN mvn -f /app/pom.xml clean package -DskipTests
 
 FROM openjdk:21-slim
-RUN apt-get update && apt-get install
+#RUN apt-get update && apt-get install
 # copy from maven_builder
 COPY --from=maven_builder app/target/*.jar /app/api.jar
 WORKDIR /app
